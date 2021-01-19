@@ -1,11 +1,15 @@
---tablecreator.sql
+--tablecreator2.sql
+
+
 
 --This is where we will actually do the work of creating the tables
+--DROP TABLE IF EXISTS
 --DROP TABLES IF EXISTS
 DROP TABLE IF EXISTS pet_owner;
 DROP TABLE IF EXISTS pet;
 DROP TABLE IF EXISTS visit;
-DROP TABLE IF EXISTS procedure;
+DROP TABLE IF EXISTS line_item;
+DROP TABLE IF EXISTS invoice;
 --CREATE TABLE
 CREATE TABLE pet_owner
 (
@@ -36,12 +40,23 @@ CREATE TABLE visit
         ,pet_id INTEGER NOT NULL
 );
 
-CREATE TABLE procedure
+CREATE TABLE line_item
 (
-        procedure_id SERIAL NOT NULL PRIMARY KEY
+        line_item_id SERIAL NOT NULL PRIMARY KEY
         ,visit_id INTEGER NOT NULL
         ,name VARCHAR(50) NOT NULL
+        ,amount DECIMAL(10,2) NOT NULL
 );
+
+CREATE TABLE invoice
+(
+        invoice_id SERIAL NOT NULL PRIMARY KEY
+        ,owner_id INTEGER NOT NULL
+        ,line_item_id INTEGER NOT NULL
+        ,total_due DECIMAL(10,2) NOT NULL
+        ,payment_date DATE NOT NULL
+);
+
 
 --ALTER TABLE
 
@@ -57,7 +72,17 @@ FOREIGN KEY (pet_id)
 REFERENCES pet (pet_id);
 
 
-ALTER TABLE procedure
-ADD CONSTRAINT fk_visit_procedure
+ALTER TABLE line_item
+ADD CONSTRAINT fk_visit_line_item
 FOREIGN KEY (visit_id)
 REFERENCES visit (visit_id);
+
+ALTER TABLE invoice
+ADD CONSTRAINT fk_line_item_invoice
+FOREIGN KEY (line_item_id)
+REFERENCES line_item (line_item_id);
+
+ALTER TABLE pet_owner
+ADD CONSTRAINT fk_invoice_pet_owner
+FOREIGN KEY (owner_id)
+REFERENCES pet_owner (owner_id);
