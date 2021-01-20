@@ -1,5 +1,5 @@
-SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE datname = 'projects';
+SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE datname = 'projects_pair';
 
-DROP DATABASE projects;
+DROP DATABASE projects_pair;
 
-CREATE DATABASE projects;
+CREATE DATABASE projects_pair;
