@@ -77,7 +77,13 @@ public class JDBCProjectDAO implements ProjectDAO
 	@Override
 	public void addEmployeeToProject(Long projectId, Long employeeId)
 	{
-		
+		String addEmployee = "INSERT INTO project_employee\r\n" + 
+								"        (\r\n" + 
+								"                project_id\r\n" + 
+								"                ,employee_id\r\n" + 
+								"        )\r\n" + 
+								"VALUES (?,?);";
+		jdbcTemplate.update(addEmployee,projectId,employeeId);
 	}
 
 }
