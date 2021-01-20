@@ -5,11 +5,14 @@
 --This is where we will actually do the work of creating the tables
 --DROP TABLE IF EXISTS
 --DROP TABLES IF EXISTS
-DROP TABLE IF EXISTS pet_owner;
-DROP TABLE IF EXISTS pet;
-DROP TABLE IF EXISTS visit;
-DROP TABLE IF EXISTS line_item;
-DROP TABLE IF EXISTS invoice;
+--BEGIN TRANSACTION;
+--ROLLBACK;
+
+DROP TABLE IF EXISTS pet_owner CASCADE;
+DROP TABLE IF EXISTS pet CASCADE;
+DROP TABLE IF EXISTS visit CASCADE;
+DROP TABLE IF EXISTS line_item CASCADE;
+DROP TABLE IF EXISTS invoice CASCADE;
 --CREATE TABLE
 CREATE TABLE pet_owner
 (
@@ -36,7 +39,6 @@ CREATE TABLE visit
 (
         visit_id SERIAL NOT NULL PRIMARY KEY
         ,visit_date DATE NOT NULL
-        ,procedure_id INTEGER NOT NULL
         ,pet_id INTEGER NOT NULL
 );
 

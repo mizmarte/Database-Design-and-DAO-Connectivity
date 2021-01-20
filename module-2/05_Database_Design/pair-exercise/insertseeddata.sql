@@ -1,4 +1,4 @@
-insertseeddata.sql
+--insertseeddata.sql
 
 --This is where we will insert the actual data
 --INSERT INTO
@@ -34,3 +34,21 @@ VALUES
 ,('10','Examine and Treat Wound')
 ,('12', 'Eye Wash')
 ,('20','Annual Check-Up');
+
+--SELECT *
+--FROM procedure;
+
+INSERT INTO visit
+(visit_id, visit_date, procedure_id, pet_id)
+VALUES
+('1','2001-01-23','01','341')
+,('2','2002-01-13','01','341')
+,('3','2002-01-13','01','246')
+,('4','2002-03-10','05','298')
+,('5','2002-03-27','10','246')
+,('6','2002-04-02','05','246')
+,('7','2002-04-30','20','519')
+,('8','2002-04-30','12','519');
+
+SELECT*
+FROM visit;

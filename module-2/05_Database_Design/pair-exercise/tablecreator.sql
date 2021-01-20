@@ -1,11 +1,14 @@
 --tablecreator.sql
-
 --This is where we will actually do the work of creating the tables
 --DROP TABLES IF EXISTS
-DROP TABLE IF EXISTS pet_owner;
-DROP TABLE IF EXISTS pet;
-DROP TABLE IF EXISTS visit;
-DROP TABLE IF EXISTS procedure;
+--ROLLBACK TRANSACTION;
+--BEGIN TRANSACTION;
+
+
+DROP TABLE IF EXISTS pet_owner CASCADE;
+DROP TABLE IF EXISTS pet CASCADE;
+DROP TABLE IF EXISTS visit CASCADE;
+DROP TABLE IF EXISTS procedure CASCADE;
 --CREATE TABLE
 CREATE TABLE pet_owner
 (
@@ -39,7 +42,7 @@ CREATE TABLE visit
 CREATE TABLE procedure
 (
         procedure_id SERIAL NOT NULL PRIMARY KEY
-        ,visit_id INTEGER NOT NULL
+        ,visit_id INTEGER 
         ,name VARCHAR(50) NOT NULL
 );
 
