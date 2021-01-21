@@ -131,12 +131,44 @@ public class JDBCEmployeeDAO implements EmployeeDAO {
 	}
 
 	@Override
-	public List<Employee> getEmployeesByProjectId(Long projectId) {
-		return new ArrayList<>();
+	public List<Employee> getEmployeesByProjectId(Long projectId) 
+	{
+		List<Employee> employees = new ArrayList<Employee>();
+		
+		String query = "SELECT e.employee_id\r\n" + 
+					"        ,department_id\r\n" + 
+					"        ,first_name\r\n" + 
+					"        ,last_name\r\n" + 
+					"        ,birth_date\r\n" + 
+					"        ,gender\r\n" + 
+					"        ,hire_date\r\n" + 
+					"FROM employee AS e\r\n" + 
+					"INNER JOIN project_employee AS pe\r\n" + 
+					"ON e.employee_id = pe.employee_id\r\n" + 
+					"WHERE pe.project_id = ?;";
+		
+		SqlRowSet rows = jdbcTemplate.queryForRowSet(query,projectId);
+		
+		while(rows.next())
+		{
+			Employee employee = mapRowToEmployee(rows);
+			
+			employees.add(employee);
+		}
+		
+		
+		return employees;
 	}
+	
 
 	@Override
-	public void changeEmployeeDepartment(Long employeeId, Long departmentId) {
+	public void changeEmployeeDepartment(Long employeeId, Long departmentId) 
+	{
+		String changeEmployee = "UPDATE employee\r\n" + 
+				"        SET department_id = 2\r\n" + 
+				"        WHERE employee_id =12;";
+		
+		jdbcTemplate.update(changeEmployee, departmentId, employeeId);
 		
 	}
 	
@@ -149,7 +181,7 @@ public class JDBCEmployeeDAO implements EmployeeDAO {
 		theEmployee.setFirstName(results.getString("first_name"));
 		theEmployee.setLastName(results.getString("last_name"));
 		theEmployee.setBirthDay(results.getDate("birth_date").toLocalDate());
-		//theEmployee.setGender(results.getGender("gender"));
+		theEmployee.setGender(results.getString("gender").charAt(0));
 		theEmployee.setHireDate(results.getDate("hire_date").toLocalDate());
 		
 		return theEmployee;
