@@ -69,7 +69,7 @@ public class JDBCProjectDAO implements ProjectDAO
 	@Override
 	public void removeEmployeeFromProject(Long projectId, Long employeeId)
 	{
-		String deleteQuery = "DELETE FROM project_employee WHERE projectId = ? AND employeeId = ?;";
+		String deleteQuery = "DELETE FROM project_employee WHERE project_id = ? AND employee_id = ?;";
 		
 		jdbcTemplate.update(deleteQuery, projectId, employeeId);
 	}

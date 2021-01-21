@@ -17,7 +17,10 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.SingleConnectionDataSource;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 
+import com.techelevator.projects.model.Employee;
 import com.techelevator.projects.model.Project;
+import com.techelevator.projects.model.interfaces.EmployeeDAO;
+import com.techelevator.projects.model.jdbc.JDBCEmployeeDAO;
 import com.techelevator.projects.model.jdbc.JDBCProjectDAO;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
@@ -95,10 +98,13 @@ public class JDBCProjectDAOIntegrationTest
 		//arrange
 		long projectId=3;
 		long employeeId=1;
+		EmployeeDAO empDAO = new JDBCEmployeeDAO(dataSource);
+		List<Employee> startList = empDAO.getEmployeesByProjectId(projectId);
 		//act
-		List<Project> results = dao.removeEmployeeFromProject(projectId, employeeId);
+		dao.removeEmployeeFromProject(projectId, employeeId);
 		//assert
-		
+		List<Employee> endList = empDAO.getEmployeesByProjectId(projectId);
+		assertNotEquals(startList, endList);
 	}
 	
 }
