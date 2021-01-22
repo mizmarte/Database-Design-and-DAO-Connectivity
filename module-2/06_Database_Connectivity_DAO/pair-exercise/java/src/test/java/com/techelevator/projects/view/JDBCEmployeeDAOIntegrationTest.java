@@ -64,14 +64,18 @@ public class JDBCEmployeeDAOIntegrationTest
 	public void change_employee_dept_should_return_employee_id_with_a_different_dept_id()
 	{
 		//arrange
-		
+		//add an employee to the dB 
+		//generate list with new employee added
 		
 		//act
+		//use dao function to change employee department
+		//generate list with change made
+		
 		//assert
+		//compare both lists - they should not be equal
 		
 		fail("Not yet implemented");
 	}
-	
 	
 	
 
