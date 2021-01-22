@@ -65,6 +65,8 @@ public class JDBCEmployeeDAOIntegrationTest
 	{
 		//arrange
 		//add an employee to the dB 
+		//use .setId(pick a number)
+		//use insertEmployee(testEmployee) to put in dB (**build method below**)
 		//generate list with new employee added
 		
 		//act
@@ -94,4 +96,27 @@ public class JDBCEmployeeDAOIntegrationTest
 		
 	}
 
+	private void insertEmployee(Employee employee)
+	{		
+		String query = "INSERT INTO employee " + 
+				"( " + 
+				"employee_id\r\n" + 
+				"        ,department_id\r\n" + 
+				"        ,first_name\r\n" + 
+				"        ,last_name\r\n" + 
+				"        ,birth_date\r\n" + 
+				"        ,gender\r\n" + 
+				"        ,hire_date )" +  
+				"VALUES (?, ?, ?, ?, ?, ?, ?);";
+		
+		jdbcTemplate.update(query
+							,employee.getId()
+							,employee.getDepartmentId()
+							, employee.getFirstName()
+							, employee.getLastName()
+							, employee.getBirthDay()
+							, employee.getGender()
+							, employee.getHireDate());
+				
+	}
 }
